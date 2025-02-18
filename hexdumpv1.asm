@@ -63,11 +63,11 @@ SECTION .text			;	Section containing code
 		SCAN:
 			XOR RAX,RAX	;Clear rax to 0 <I love XOR!, like wow>
 
-;Here we calculate the offset into the line string, which is rcx X 3
+;Here we calculate the offset into the line string, which is rcx * 3
 
 			MOV RDX,RCX	;Copy the pointer into line string into rdx
 			;SHL RDX,1	;Multiply pointer by 2
-			;ADD RDX,RCX	;Complete the multiplication X3
+			;ADD RDX,RCX	;Complete the multiplication rdx * 3
 			LEA RDX,[RDX*2+RDX];Is equivalent to the previous two commented out lines
 
 ;Get a character from the buffer and put it in both rax and rbx
