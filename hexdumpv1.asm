@@ -22,11 +22,13 @@ SECTION .data			;	Section containing initialised data
 	HEXSTR: DB " 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00",10
 	HEXLEN EQU $-HEXSTR		;I'm guessing that this could'nt have been in .bss coz of asm time
 												;calculations like this one? I mean it is uninitialised data in a sense
-												;(I don't respect 0's as proper initialised data but that's just a me thing)
+												;(I don't respect 0's and spaces as proper initialised data but that's just a me thing)
 												; As far as I know, .bss is not allocated storage at assembly and linkage,
 												;rather the loader allocates storage for .bss as and when the executable is
 												;loaded into excecution.So doing assembly time logic there and then,
 												; would lead to some error.Find out bitte future me reading this.
+												;[In defence of this scheme, it offers a very elegant solution for including spaces
+												; - think of the array as 16 sets of 3!]
 
 	DIGITS: DB "0123456789ABCDEF"
 
