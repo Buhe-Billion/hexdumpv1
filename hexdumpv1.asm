@@ -3,7 +3,7 @@
 ;				:	separated by spaces.
 ;				:
 ;Architecture			:	x86-64
-;CPU				:	INTEL
+;CPU				:	Intel® Core™2 Duo CPU T6570 @ 2.10GHz × 2
 ;make				:	hexdumpv1: hexdumpv1.o
 ;				:		ld -o hexdumpv1 hexdumpv1.o
 ;				:	hexdumpv1.o: hexdumpv1.asm
