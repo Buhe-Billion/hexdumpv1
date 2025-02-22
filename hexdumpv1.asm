@@ -32,6 +32,20 @@ SECTION .data			;	Section containing initialised data
 
 	DIGITS: DB "0123456789ABCDEF"
 
+;Use these instead of raw 'magic' values 'K&R'.
+;Makes our code easier to read and maintain.
+
+	        SYS_WRITE_CALL_VAL EQU 1
+	        STDERR_FD          EQU 2
+	        SYS_READ_CALL_VAL  EQU 0
+	        STDIN_FD           EQU 0
+	        STDOUT_FD          EQU 1
+	        EXIT_SYSCALL       EQU 60
+	        OK_RET_VAL         EQU 0
+					EOF_VAL						 EQU 0
+
+
+
 SECTION .text			;	Section containing code
 
 	global _start		;	Linker entry point.<Beginning of the world>
@@ -43,13 +57,13 @@ SECTION .text			;	Section containing code
 ;Read a buffer full of text from stdin:
 
 		READ:
-			MOV RAX,0	;Specify sys_read call
-			MOV RDI,0	;Specify stin fd:0
+			MOV RAX,SYS_READ_CALL_VAL	;Specify sys_read call
+			MOV RDI,STDIN_FD	;Specify stin fd:0
 			MOV RSI,BUFF	;Pass BUFF offset
 			MOV RDX,BUFFLEN ;Pass # of bytes to read
 			SYSCALL		;Call sys_read <ring0>
 			MOV R15,RAX	;Save # of bytes read from file for later
-			CMP RAX,0	;Did we reach EOF? <sys_read returns to rax the number of bytes read>
+			CMP RAX,EOF_VAL	;Did we reach EOF? <sys_read returns to rax the number of bytes read>
 			JE DONE		;Los geht's
 
 ;Set up registers for the process Buffer step:parm
@@ -105,8 +119,8 @@ SECTION .text			;	Section containing code
 ;Auf Wiedersehen
 
 		DONE:
-			MOV RAX,60	;EXIT THE PROGRAM
-			MOV RDI,0	;RETURN VALUE
+			MOV RAX,EXIT_SYSCALL	;EXIT THE PROGRAM
+			MOV RDI,OK_RET_VAL	  ;RETURN VALUE
 			SYSCALL		;SERVUS UND BIS DANN
 
 
